@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  db:
+    build: ./db
+    image: image_db
+    restart: always
+    container_name: db
+    environment:
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: iCommerce
+    ports:
+    - 5432:5432

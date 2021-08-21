@@ -4,6 +4,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
+import { connectPostgres } from './app/common/postgres';
+
 // Start server
 try {
   const app = express();
@@ -16,6 +18,8 @@ try {
   app.use(cors());
 
   const init = async () => {
+    await connectPostgres();
+
     app.listen(port, () => {
       console.log('API Server is running on port ' + port);
     });

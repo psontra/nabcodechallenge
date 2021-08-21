@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize';
 
 const username = process.env.POSTGRES_USER || 'postgres';
 const password = process.env.POSTGRES_PASSWORD || '123';
-const dbName = process.env.DB_NAME || 'wishlist';
+const dbName = process.env.DB_NAME || 'iCommerce';
 const host = process.env.DB_HOST || '127.0.0.1';
 
 export const sequelize = new Sequelize(dbName, username, password, {
@@ -11,5 +11,10 @@ export const sequelize = new Sequelize(dbName, username, password, {
 });
 
 export const connectPostgres = async (): Promise<void> => {
-  await sequelize.authenticate();
+  try {
+    await sequelize.authenticate();
+    console.log('Connect to database successfully');
+  } catch (e) {
+    console.log('Error when connecting to database', e);
+  }
 };
