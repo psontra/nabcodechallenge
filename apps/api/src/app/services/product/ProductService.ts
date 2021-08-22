@@ -13,9 +13,10 @@ class ProductService implements IProductService {
   ) {}
 
   public async getProducts(
-    filter: Record<string, unknown>,
+    filter: Record<string, unknown>[],
+    sortBy?: [string, string],
   ): Promise<Product[]> {
-    return await this._productRepository.retrieve(filter);
+    return await this._productRepository.retrieve(filter, sortBy);
   }
 }
 

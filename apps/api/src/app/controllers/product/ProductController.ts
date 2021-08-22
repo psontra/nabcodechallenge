@@ -1,8 +1,7 @@
 import { inject, injectable } from 'inversify';
-import { get } from 'lodash';
 
 import { IProductController } from './IProductController';
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import Types from '../../common/Ioc/Types';
 import { IProductService } from '../../services/product/IProductService';
 import Logger from '../../common/Logger';
@@ -10,6 +9,7 @@ import {
   transformProduct,
   TransformedProduct,
 } from '../../transformers/ProductTransformer';
+import { ExpressCustomRequest } from '../../common/ExpressCustomTypes';
 
 @injectable()
 class ProductController implements IProductController {
@@ -18,13 +18,14 @@ class ProductController implements IProductController {
   ) {}
 
   public async getProducts(
-    req: Request,
+    req: ExpressCustomRequest,
     res: Response,
     next: NextFunction,
   ): Promise<void> {
     try {
       const products = await this._productService.getProducts(
-        get(req, 'filter'),
+        req.filter,
+        req.sortBy,
       );
       const transformedProducts: TransformedProduct[] =
         products.map(transformProduct);
@@ -33,7 +34,7 @@ class ProductController implements IProductController {
     } catch (err) {
       Logger.error('Error getting product list', err);
 
-      next(err);
+      return next(err);
     }
   }
 }

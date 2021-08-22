@@ -12,7 +12,7 @@ import Types from './app/common/Ioc/Types';
 import Logger from './app/common/Logger';
 import container from './app/common/Ioc/InversifyConfig';
 import Routes from './routes';
-import sequelize from './app/common/Sequelize';
+import sequelize from './app/common/db/Sequelize';
 
 const routes: Routes = container.get(Types.Routes);
 

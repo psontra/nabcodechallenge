@@ -2,9 +2,9 @@ import { Sequelize } from 'sequelize-typescript';
 import config from 'config';
 import { injectable } from 'inversify';
 
-import Brand from '../models/Brand';
-import Category from '../models/Category';
-import Product from '../models/Product';
+import Brand from '../../models/Brand';
+import Category from '../../models/Category';
+import Product from '../../models/Product';
 
 @injectable()
 class SequelizeWrapper {

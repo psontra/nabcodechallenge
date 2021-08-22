@@ -3,6 +3,7 @@ import { inject, injectable } from 'inversify';
 
 import Types from '../common/Ioc/Types';
 import { IProductController } from '../controllers/product/IProductController';
+import parseQuery from '../common/ParseQuery';
 
 @injectable()
 class ProductRoute {
@@ -19,6 +20,7 @@ class ProductRoute {
   private registerProductRoutes() {
     this._router.get(
       '/',
+      parseQuery,
       this._productController.getProducts.bind(this._productController),
     );
   }

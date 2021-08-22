@@ -1,5 +1,8 @@
 import Product from '../../models/Product';
 
 export interface IProductRepository {
-  retrieve(filter: Record<string, unknown>): Promise<Product[]>;
+  retrieve(
+    filter: Record<string, unknown>[],
+    sortBy?: [string, string],
+  ): Promise<Product[]>;
 }
