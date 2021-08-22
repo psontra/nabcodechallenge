@@ -2,14 +2,37 @@ import { Container } from 'inversify';
 
 import Types from './Types';
 
-import { ILogger } from '../logger/ILogger';
-import Logger from '../logger/Logger';
-import { ISequelize } from '../db/ISequelize';
-import SequelizeClass from '../db/Sequelize';
+import ProductRepository from '../../repositories/product/ProductRepository';
+import { IProductRepository } from '../../repositories/product/IProductRepository';
 
-const container = new Container();
+import { IProductService } from '../../services/product/IProductService';
+import ProductService from '../../services/product/ProductService';
 
-container.bind<ILogger>(Types.ILogger).to(Logger);
-container.bind<ISequelize>(Types.ISequelize).to(SequelizeClass);
+import { IProductController } from '../../controllers/product/IProductController';
+import ProductController from '../../controllers/product/ProductController';
 
-export default container;
+import ProductRoute from '../../routes/ProductRoute';
+import Routes from '../../../routes';
+
+class InversifyConfig {
+  static init(): Container {
+    const container = new Container();
+
+    container
+      .bind<IProductRepository>(Types.IProductRepository)
+      .to(ProductRepository);
+
+    container.bind<IProductService>(Types.IProductService).to(ProductService);
+
+    container
+      .bind<IProductController>(Types.IProductController)
+      .to(ProductController);
+
+    container.bind<ProductRoute>(Types.ProductRoute).to(ProductRoute);
+    container.bind<Routes>(Types.Routes).to(Routes);
+
+    return container;
+  }
+}
+
+export default InversifyConfig.init();

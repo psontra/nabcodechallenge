@@ -9,20 +9,20 @@ import morgan from 'morgan';
 
 import { ErrorHandler } from './app/common/ErrorHandler';
 import Types from './app/common/Ioc/Types';
-import { ILogger } from './app/common/logger/ILogger';
+import Logger from './app/common/Logger';
 import container from './app/common/Ioc/InversifyConfig';
-import { ISequelize } from './app/common/db/ISequelize';
+import Routes from './routes';
+import sequelize from './app/common/Sequelize';
 
-const logger: ILogger = container.get(Types.ILogger);
-const sequelize: ISequelize = container.get(Types.ISequelize);
+const routes: Routes = container.get(Types.Routes);
 
 const connectPostgres = async (): Promise<void> => {
   try {
-    await sequelize.getInstance().authenticate();
+    await sequelize.authenticate();
 
-    logger.debug('Connect to database successfully');
-  } catch (e) {
-    logger.error('Error when connecting to database', e);
+    Logger.debug('Connect to database successfully');
+  } catch (err) {
+    Logger.error('Error when connecting to database', err);
   }
 };
 
@@ -37,17 +37,18 @@ try {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(cors());
   app.use(morgan('combined'));
+  app.use(routes.router);
   app.use(ErrorHandler);
 
   const init = async () => {
     await connectPostgres();
 
     app.listen(port, () => {
-      logger.debug(`API Server is running on port ${port}`);
+      Logger.debug(`API Server is running on port ${port}`);
     });
   };
 
   init();
 } catch (err) {
-  logger.error(`Can't start API Server`, err);
+  Logger.error(`Can't start API Server`, err);
 }

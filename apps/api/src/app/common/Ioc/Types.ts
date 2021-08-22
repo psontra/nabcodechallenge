@@ -1,6 +1,12 @@
 const Types = {
-  ILogger: Symbol('ILogger'),
-  ISequelize: Symbol('ISequelize')
+  IProductRepository: Symbol('IProductRepository'),
+
+  IProductService: Symbol('IProductService'),
+
+  IProductController: Symbol('IProductController'),
+
+  ProductRoute: Symbol('ProductRoute'),
+  Routes: Symbol('Routes'),
 };
 
 export default Types;
