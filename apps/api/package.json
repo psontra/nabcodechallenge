@@ -7,7 +7,7 @@
   },
   "scripts": {
     "preinstall": "git config core.autocrlf false && git config core.eol lf",
-    "start": "npm run build && node dist/app.js",
+    "start": "npm run build && npx copyfiles -u 2 src/config/*.json dist/config && node dist/app.js",
     "serve:dev": "nodemon src/app.ts",
     "build": "tsc"
   },
