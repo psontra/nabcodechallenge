@@ -6,6 +6,10 @@ import { NextFunction, Request, Response } from 'express';
 import Types from '../../common/Ioc/Types';
 import { IProductService } from '../../services/product/IProductService';
 import Logger from '../../common/Logger';
+import {
+  transformProduct,
+  TransformedProduct,
+} from '../../transformers/ProductTransformer';
 
 @injectable()
 class ProductController implements IProductController {
@@ -22,8 +26,10 @@ class ProductController implements IProductController {
       const products = await this._productService.getProducts(
         get(req, 'filter'),
       );
+      const transformedProducts: TransformedProduct[] =
+        products.map(transformProduct);
 
-      res.json(products);
+      res.json(transformedProducts);
     } catch (err) {
       Logger.error('Error getting product list', err);
 

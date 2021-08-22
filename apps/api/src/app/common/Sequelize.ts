@@ -14,6 +14,7 @@ class SequelizeWrapper {
       password: string;
       host: string;
       name: string;
+      logging: boolean;
     } = config.get('dbConfig');
     const username = dbConfig.user || 'postgres';
     const password = dbConfig.password || '123';
@@ -23,6 +24,7 @@ class SequelizeWrapper {
     const sequelize: Sequelize = new Sequelize(dbName, username, password, {
       host,
       dialect: 'postgres',
+      logging: dbConfig.logging,
     });
 
     sequelize.addModels([Brand, Category, Product]);

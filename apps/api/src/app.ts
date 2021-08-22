@@ -20,7 +20,7 @@ const connectPostgres = async (): Promise<void> => {
   try {
     await sequelize.authenticate();
 
-    Logger.debug('Connect to database successfully');
+    Logger.info('Connect to database successfully');
   } catch (err) {
     Logger.error('Error when connecting to database', err);
   }
@@ -44,7 +44,7 @@ try {
     await connectPostgres();
 
     app.listen(port, () => {
-      Logger.debug(`API Server is running on port ${port}`);
+      Logger.info(`API Server is running on port ${port}`);
     });
   };
 
