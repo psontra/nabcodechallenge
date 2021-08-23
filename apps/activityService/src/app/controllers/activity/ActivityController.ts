@@ -1,5 +1,3 @@
-process.env['NODE_CONFIG_DIR'] = __dirname + '/../../../config/';
-
 import { inject, injectable } from 'inversify';
 import { NextFunction, Response } from 'express';
 import { ValidatedRequest } from 'express-joi-validation';

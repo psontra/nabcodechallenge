@@ -1,8 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { NextFunction, Response } from 'express';
 
-process.env['NODE_CONFIG_DIR'] = __dirname + '/../../../config/';
-
 import { IProductController } from './IProductController';
 import Types from '../../common/Ioc/Types';
 import { IProductService } from '../../services/product/IProductService';
