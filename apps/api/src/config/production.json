@@ -1,0 +1,12 @@
+{
+  "port": 3000,
+  "dbConfig": {
+    "user": "postgres",
+    "password": "123",
+    "host": "127.0.0.1",
+    "name": "iCommerce",
+    "logging": false
+  },
+  "nodeEnv": "dev",
+  "logLevel": "info"
+}
