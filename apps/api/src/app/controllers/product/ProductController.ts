@@ -36,7 +36,10 @@ class ProductController implements IProductController {
       const transformedProducts: TransformedProduct[] =
         products.map(transformProduct);
 
-      res.json(transformedProducts);
+      res.json({
+        data: transformedProducts,
+        success: true,
+      });
     } catch (err) {
       Logger.error('Error getting product list ', err);
 
@@ -55,7 +58,10 @@ class ProductController implements IProductController {
       );
       const transformedProduct: TransformedProduct = transformProduct(product);
 
-      res.json(transformedProduct);
+      res.json({
+        data: transformedProduct,
+        success: true,
+      });
     } catch (err) {
       Logger.error('Error getting product detail ', err);
 
@@ -75,7 +81,10 @@ class ProductController implements IProductController {
       );
       const transformedProduct: TransformedProduct = transformProduct(product);
 
-      res.json(transformedProduct);
+      res.json({
+        data: transformedProduct,
+        success: true,
+      });
     } catch (err) {
       Logger.error('Error updating product ', err);
 
@@ -91,7 +100,9 @@ class ProductController implements IProductController {
     try {
       await this._productService.deleteById(req.params.productId);
 
-      res.json({ deleteSuccess: true });
+      res.json({
+        success: true,
+      });
     } catch (err) {
       Logger.error('Error deleting product ', err);
 
@@ -108,7 +119,10 @@ class ProductController implements IProductController {
       const product = await this._productService.createProduct(req.body);
       const transformedProduct: TransformedProduct = transformProduct(product);
 
-      res.json(transformedProduct);
+      res.json({
+        data: transformedProduct,
+        success: true,
+      });
     } catch (err) {
       Logger.error('Error creating product ', err);
 

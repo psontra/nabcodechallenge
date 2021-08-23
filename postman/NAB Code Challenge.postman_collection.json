@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "f505e7c5-f64b-4ae6-ae28-a64b9a8fb1e1",
+		"name": "NAB Code Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get product list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}/products?price__gte=0&sortBy=price:asc",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "price__gte",
+							"value": "0"
+						},
+						{
+							"key": "sortBy",
+							"value": "price:asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get product detail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}/products/edcf6c53-728f-4fa9-ab52-669a30cda0fb",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"products",
+						"edcf6c53-728f-4fa9-ab52-669a30cda0fb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}/products/edcf6c53-728f-4fa9-ab52-669a30cda0fb",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"products",
+						"edcf6c53-728f-4fa9-ab52-669a30cda0fb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update product",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"new product\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{apiUrl}}/products/edcf6c53-728f-4fa9-ab52-669a30cda0fb",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"products",
+						"edcf6c53-728f-4fa9-ab52-669a30cda0fb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create product Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"new product\",\r\n    \"price\": \"12345\",\r\n    \"brandId\": \"249176ea-24d8-40e5-a729-fab46430986c\",\r\n    \"categoryId\": \"aa4ef1f7-7956-43cd-9b28-cf921e249c51\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{apiUrl}}/products",
+					"host": [
+						"{{apiUrl}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "apiUrl",
+			"value": "http://localhost:3000"
+		}
+	]
+}

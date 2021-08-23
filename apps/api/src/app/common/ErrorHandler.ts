@@ -23,6 +23,9 @@ export const ErrorHandler = (
       errorMessage = err;
     }
 
-    res.status(500).json({ error: errorMessage });
+    res.status(500).json({
+      error: errorMessage,
+      success: false,
+    });
   }
 };

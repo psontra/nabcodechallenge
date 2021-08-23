@@ -55,7 +55,10 @@ describe('product.controller', () => {
       await productController.getProducts(request, response, next);
 
       expect(response.json).toHaveBeenCalledTimes(1);
-      expect(response.json).toHaveBeenCalledWith([]);
+      expect(response.json).toHaveBeenCalledWith({
+        data: [],
+        success: true,
+      });
       expect(productServiceMock.getProducts).toHaveBeenCalledTimes(1);
       expect(productServiceMock.getProducts).toHaveBeenCalledWith(
         [
@@ -161,20 +164,23 @@ describe('product.controller', () => {
 
       expect(response.json).toHaveBeenCalledTimes(1);
       expect(response.json).toHaveBeenCalledWith({
-        id: 'unit test',
-        name: 'unit test name',
-        price: 123,
-        color: null,
-        creationDate: expect.any(Date),
-        updatedOn: expect.any(Date),
-        productBrand: {
-          id: 'unit test brand id',
-          name: 'unit test brand name',
+        data: {
+          id: 'unit test',
+          name: 'unit test name',
+          price: 123,
+          color: null,
+          creationDate: expect.any(Date),
+          updatedOn: expect.any(Date),
+          productBrand: {
+            id: 'unit test brand id',
+            name: 'unit test brand name',
+          },
+          productCategory: {
+            id: 'unit test category id',
+            name: 'unit test category name',
+          },
         },
-        productCategory: {
-          id: 'unit test category id',
-          name: 'unit test category name',
-        },
+        success: true,
       });
       expect(productServiceMock.getProductById).toHaveBeenCalledTimes(1);
       expect(productServiceMock.getProductById).toHaveBeenCalledWith(
@@ -256,20 +262,23 @@ describe('product.controller', () => {
 
       expect(response.json).toHaveBeenCalledTimes(1);
       expect(response.json).toHaveBeenCalledWith({
-        id: 'unit test',
-        name: 'unit test name',
-        price: 123,
-        color: null,
-        creationDate: expect.any(Date),
-        updatedOn: expect.any(Date),
-        productBrand: {
-          id: 'unit test brand id',
-          name: 'unit test brand name',
+        data: {
+          id: 'unit test',
+          name: 'unit test name',
+          price: 123,
+          color: null,
+          creationDate: expect.any(Date),
+          updatedOn: expect.any(Date),
+          productBrand: {
+            id: 'unit test brand id',
+            name: 'unit test brand name',
+          },
+          productCategory: {
+            id: 'unit test category id',
+            name: 'unit test category name',
+          },
         },
-        productCategory: {
-          id: 'unit test category id',
-          name: 'unit test category name',
-        },
+        success: true,
       });
       expect(productServiceMock.updateById).toHaveBeenCalledTimes(1);
       expect(productServiceMock.updateById).toHaveBeenCalledWith('unit test', {
@@ -335,7 +344,7 @@ describe('product.controller', () => {
       await productController.deleteProduct(request, response, next);
 
       expect(response.json).toHaveBeenCalledTimes(1);
-      expect(response.json).toHaveBeenCalledWith({ deleteSuccess: true });
+      expect(response.json).toHaveBeenCalledWith({ success: true });
       expect(productServiceMock.deleteById).toHaveBeenCalledTimes(1);
       expect(productServiceMock.deleteById).toHaveBeenCalledWith('unit test');
     });
@@ -414,20 +423,23 @@ describe('product.controller', () => {
 
       expect(response.json).toHaveBeenCalledTimes(1);
       expect(response.json).toHaveBeenCalledWith({
-        id: 'unit test',
-        name: 'unit test name',
-        price: 123,
-        color: null,
-        creationDate: expect.any(Date),
-        updatedOn: expect.any(Date),
-        productBrand: {
-          id: 'unit test brand id',
-          name: 'unit test brand name',
+        data: {
+          id: 'unit test',
+          name: 'unit test name',
+          price: 123,
+          color: null,
+          creationDate: expect.any(Date),
+          updatedOn: expect.any(Date),
+          productBrand: {
+            id: 'unit test brand id',
+            name: 'unit test brand name',
+          },
+          productCategory: {
+            id: 'unit test category id',
+            name: 'unit test category name',
+          },
         },
-        productCategory: {
-          id: 'unit test category id',
-          name: 'unit test category name',
-        },
+        success: true,
       });
       expect(productServiceMock.createProduct).toHaveBeenCalledTimes(1);
       expect(productServiceMock.createProduct).toHaveBeenCalledWith({
