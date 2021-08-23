@@ -1,10 +1,10 @@
 import { get } from 'lodash';
 
-import Product from '../models/Product';
+import { Product } from '../models/Product';
 
 type TransformedProduct = Pick<
   Product,
-  'id' | 'name' | 'price' | 'color' | 'creationDate'
+  'id' | 'name' | 'price' | 'color' | 'creationDate' | 'updatedOn'
 > & {
   productBrand: {
     id: string;
@@ -31,6 +31,7 @@ const transformProduct = (productData: Product): TransformedProduct => {
       name: get(productData.category, 'name'),
     },
     creationDate: productData.creationDate,
+    updatedOn: productData.updatedOn,
   };
 };
 

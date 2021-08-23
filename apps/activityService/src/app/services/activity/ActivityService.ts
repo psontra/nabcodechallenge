@@ -13,13 +13,10 @@ class ActivityService implements IActivityService {
   ) {}
 
   public async createActivity(
-    body: ActivityCreationAttributes,
+    createActivityData: ActivityCreationAttributes,
   ): Promise<Activity> {
     const activityCreateObj: ActivityCreationAttributes = {
-      resourceId: body.resourceId,
-      resourceName: body.resourceName,
-      type: body.type,
-      content: body.content,
+      ...createActivityData,
       occurred: new Date(),
     };
 

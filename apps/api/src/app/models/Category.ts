@@ -12,7 +12,7 @@ import {
   Default,
 } from 'sequelize-typescript';
 
-import Product from './Product';
+import { Product } from './Product';
 
 interface CategoryAttributes {
   id: string;

@@ -8,17 +8,21 @@ export const ErrorHandler = (
   req: express.Request,
   res: express.Response,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  next: express.NextFunction
+  next: express.NextFunction,
 ): void => {
   if (err && Object.values(ContainerTypes).includes(err.type)) {
     const error: ExpressJoiError = err;
 
     res.status(400).json(error);
   } else {
+    let errorMessage: string;
+
     if (err instanceof Error) {
-      res.status(500).json({ error: err.message });
+      errorMessage = err.message;
     } else {
-      res.status(500).send(err);
+      errorMessage = err;
     }
+
+    res.status(500).json({ error: errorMessage });
   }
 };

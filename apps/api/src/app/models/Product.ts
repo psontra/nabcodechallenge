@@ -25,12 +25,16 @@ interface ProductAttributes {
   categoryId: string;
 }
 
-type ProductCreationAttributes = Optional<ProductAttributes, 'id'>;
+export type ProductCreationAttributes = Optional<ProductAttributes, 'id'>;
 
 @Table({
   tableName: 'products',
+  paranoid: true,
 })
-class Product extends Model<ProductAttributes, ProductCreationAttributes> {
+export class Product extends Model<
+  ProductAttributes,
+  ProductCreationAttributes
+> {
   @PrimaryKey
   @Default(DataType.UUIDV4)
   @Column(DataType.UUID)
@@ -68,5 +72,3 @@ class Product extends Model<ProductAttributes, ProductCreationAttributes> {
   @DeletedAt
   public deletionDate: Date;
 }
-
-export default Product;

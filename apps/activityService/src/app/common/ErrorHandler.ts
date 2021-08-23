@@ -15,10 +15,14 @@ export const ErrorHandler = (
 
     res.status(400).json(error);
   } else {
+    let errorMessage: string;
+
     if (err instanceof Error) {
-      res.status(500).json({ error: err.message });
+      errorMessage = err.message;
     } else {
-      res.status(500).send(err);
+      errorMessage = err;
     }
+
+    res.status(500).json({ error: errorMessage });
   }
 };
