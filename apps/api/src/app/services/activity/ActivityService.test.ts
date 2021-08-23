@@ -34,7 +34,7 @@ describe('activity.service', () => {
 
       expect(axiosPost).toHaveBeenCalledTimes(1);
       expect(axiosPost).toHaveBeenCalledWith(
-        'http://localhost:3001/activities',
+        'http://activity-service:3001/activities',
         {
           resourceName: 'products',
           type: 'View list',
