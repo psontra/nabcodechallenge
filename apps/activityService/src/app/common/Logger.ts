@@ -8,7 +8,7 @@ class Logger {
     const logger: winston.Logger = winston.createLogger({
       level: config.get('logLevel') || 'info',
       format: winston.format.json(),
-      defaultMeta: { service: 'api' },
+      defaultMeta: { service: 'activity-service' },
       transports: [
         new winston.transports.Console({
           format: winston.format.simple(),

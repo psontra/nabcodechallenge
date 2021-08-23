@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3.9'
 services:
   api:
     build: ./apps/api
@@ -6,17 +6,32 @@ services:
     restart: always
     container_name: api
     environment:
-      NODE_ENV: production
+      NODE_ENV: test
     ports:
       - 3000:3000
+    depends_on:
+      - db
+      - activity-service
+
+  activity-service:
+    build: ./apps/activityService
+    image: image_activity_service
+    restart: always
+    container_name: activity_service
+    environment:
+      NODE_ENV: test
+    ports:
+      - 3001:3001
+    depends_on:
+      - db
 
   db:
     build: ./db
     image: image_db
     restart: always
     container_name: db
+    ports:
+      - 5432:5432
     environment:
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: iCommerce
-    ports:
-      - 5432:5432

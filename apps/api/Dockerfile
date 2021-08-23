@@ -1,19 +1,21 @@
-FROM node:12 as builder
+FROM node:12-alpine as builder
 
 WORKDIR /usr/src/app
 
 ADD ./src ./src
 ADD package.json .
 ADD tsconfig.json .
-ADD jest.config.js .
+ADD yarn.lock .
 RUN yarn install --ignore-scripts
-RUN yarn test
 RUN yarn build
 
-FROM node:12
+FROM node:12-alpine
 
 WORKDIR /usr/src/app
 
-COPY --from=builder /usr/src/app/dist .
+COPY --from=builder /usr/src/app/dist ./dist
+COPY --from=builder /usr/src/app/package.json .
+COPY --from=builder /usr/src/app/yarn.lock .
+RUN yarn install --production --ignore-scripts
 
-CMD ['node', './dist/app.js']
+CMD [ "node", "./dist/app.js", "2>&1"]

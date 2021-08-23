@@ -3,11 +3,11 @@
   "dbConfig": {
     "user": "postgres",
     "password": "123",
-    "host": "127.0.0.1",
+    "host": "db",
     "name": "iCommerce",
     "logging": false
   },
-  "nodeEnv": "dev",
+  "nodeEnv": "test",
   "logLevel": "info",
-  "activityServiceUrl": "http://localhost:3001"
+  "activityServiceUrl": "http://activity-service:3001"
 }

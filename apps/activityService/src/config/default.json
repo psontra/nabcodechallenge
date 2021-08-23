@@ -8,5 +8,5 @@
     "logging": true
   },
   "nodeEnv": "local",
-  "logLevel": "info"
+  "logLevel": "debug"
 }
