@@ -5,11 +5,10 @@
   "engines": {
     "node": ">=12.0.0"
   },
-  "scripts": {
-  },
-  "dependencies": {
-  },
+  "scripts": {},
+  "dependencies": {},
   "devDependencies": {
+    "@types/joi": "14.3.1",
     "husky": "^7.0.1"
   }
 }

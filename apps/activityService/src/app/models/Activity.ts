@@ -1,5 +1,14 @@
-import {Optional} from 'sequelize';
-import { Column, CreatedAt, DataType, Default, Model, PrimaryKey, Table } from 'sequelize-typescript';
+import { Optional } from 'sequelize';
+import {
+  AllowNull,
+  Column,
+  CreatedAt,
+  DataType,
+  Default,
+  Model,
+  PrimaryKey,
+  Table,
+} from 'sequelize-typescript';
 
 interface ActivityAttributes {
   id: string;
@@ -10,20 +19,26 @@ interface ActivityAttributes {
   occurred: Date;
 }
 
-type ActivityAttributesCreation = Optional<ActivityAttributes, 'id'>;
+export type ActivityCreationAttributes = Optional<
+  ActivityAttributes,
+  'id' | 'occurred'
+>;
 
 @Table({
-  tableName: 'activities'
+  tableName: 'activities',
 })
-class Activity extends Model<ActivityAttributes, ActivityAttributesCreation> {
-
+export class Activity extends Model<
+  ActivityAttributes,
+  ActivityCreationAttributes
+> {
   @PrimaryKey
   @Default(DataType.UUIDV4)
   @Column(DataType.UUID)
   public id: string;
 
-  @Column
-  public resourceId?: number;
+  @AllowNull
+  @Column(DataType.UUID)
+  public resourceId?: string;
 
   @Column
   public resourceName: string;
@@ -37,5 +52,3 @@ class Activity extends Model<ActivityAttributes, ActivityAttributesCreation> {
   @CreatedAt
   public occurred: Date;
 }
-
-export default Activity;
