@@ -2,7 +2,7 @@ import { Activity } from './ActivityService';
 
 export interface IActivityService {
   logActivity(activityData: {
-    resourceId?: number;
+    resourceId?: string;
     resourceName: string;
     type: string;
     content: string;

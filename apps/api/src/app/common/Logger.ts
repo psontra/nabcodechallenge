@@ -1,8 +1,6 @@
 import winston from 'winston';
 import config from 'config';
-import { injectable } from 'inversify';
 
-@injectable()
 class Logger {
   public static initializeLogger() {
     const logger: winston.Logger = winston.createLogger({

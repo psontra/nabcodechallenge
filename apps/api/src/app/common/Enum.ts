@@ -5,11 +5,11 @@ export const ActivityResources = {
 };
 
 export const ActivityTypes = {
-  getProductList: 'View product list',
-  getProductDetail: 'View product detail',
-  updateProduct: 'Update product',
-  deleteProduct: 'Delete product',
-  createProduct: 'Create product',
+  getList: 'View list',
+  getDetail: 'View detail',
+  update: 'Update',
+  delete: 'Delete',
+  create: 'Create',
 };
 
 export const ActivityContent = {

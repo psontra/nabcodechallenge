@@ -12,7 +12,7 @@ import {
 
 interface ActivityAttributes {
   id: string;
-  resourceId?: number;
+  resourceId?: string;
   resourceName: string;
   type: string;
   content: string;

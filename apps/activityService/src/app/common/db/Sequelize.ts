@@ -1,10 +1,8 @@
 import { Sequelize } from 'sequelize-typescript';
 import config from 'config';
-import { injectable } from 'inversify';
 
 import { Activity } from '../../models/Activity';
 
-@injectable()
 class SequelizeWrapper {
   public static initializeConnection() {
     const dbConfig: {

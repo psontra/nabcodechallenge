@@ -31,6 +31,11 @@ describe('product.controller', () => {
           },
         ],
         sortBy: ['price', 'ASC'],
+        query: {
+          name__eq: 'unit test',
+          price__gt: 4500000,
+          sortBy: 'price:asc',
+        },
       };
       const response = mockResponse();
       const next = jest.fn();
@@ -64,6 +69,11 @@ describe('product.controller', () => {
           },
         ],
         ['price', 'ASC'],
+        {
+          name__eq: 'unit test',
+          price__gt: 4500000,
+          sortBy: 'price:asc',
+        },
       );
     });
 
@@ -80,6 +90,11 @@ describe('product.controller', () => {
           },
         ],
         sortBy: ['price', 'ASC'],
+        query: {
+          name__eq: 'unit test',
+          price__gt: 4500000,
+          sortBy: 'price:asc',
+        },
       };
       const response = mockResponse();
       const next = jest.fn();

@@ -22,7 +22,7 @@ class ActivityService implements IActivityService {
   }
 
   public async logActivity(activityData: {
-    resourceId?: number;
+    resourceId?: string;
     resourceName: string;
     type: string;
     content: string;
