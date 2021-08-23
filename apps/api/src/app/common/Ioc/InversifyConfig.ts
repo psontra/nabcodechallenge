@@ -7,6 +7,8 @@ import { IProductRepository } from '../../repositories/product/IProductRepositor
 
 import { IProductService } from '../../services/product/IProductService';
 import ProductService from '../../services/product/ProductService';
+import { IActivityService } from '../../services/activity/IActivityService';
+import ActivityService from '../../services/activity/ActivityService';
 
 import { IProductController } from '../../controllers/product/IProductController';
 import ProductController from '../../controllers/product/ProductController';
@@ -23,6 +25,9 @@ class InversifyConfig {
       .to(ProductRepository);
 
     container.bind<IProductService>(Types.IProductService).to(ProductService);
+    container
+      .bind<IActivityService>(Types.IActivityService)
+      .to(ActivityService);
 
     container
       .bind<IProductController>(Types.IProductController)

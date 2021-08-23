@@ -26,6 +26,7 @@ class ProductController implements IProductController {
       const products = await this._productService.getProducts(
         req.filter,
         req.sortBy,
+        req.query,
       );
       const transformedProducts: TransformedProduct[] =
         products.map(transformProduct);

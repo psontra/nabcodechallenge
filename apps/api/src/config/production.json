@@ -8,5 +8,6 @@
     "logging": false
   },
   "nodeEnv": "dev",
-  "logLevel": "info"
+  "logLevel": "info",
+  "activityServiceUrl": "http://localhost:3001"
 }
