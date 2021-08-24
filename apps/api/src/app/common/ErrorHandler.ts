@@ -1,5 +1,6 @@
 import express from 'express';
 import { ExpressJoiError } from 'express-joi-validation';
+import { get } from 'lodash';
 
 import { ContainerTypes } from './ContainerTypes';
 
@@ -15,15 +16,10 @@ export const ErrorHandler = (
 
     res.status(400).json(error);
   } else {
-    let errorMessage: string;
+    const errorMessage = get(err, 'message') || err;
+    const statusCode = get(err, 'statusCode') || 500;
 
-    if (err instanceof Error) {
-      errorMessage = err.message;
-    } else {
-      errorMessage = err;
-    }
-
-    res.status(500).json({
+    res.status(statusCode).json({
       error: errorMessage,
       success: false,
     });

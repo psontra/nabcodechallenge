@@ -6,6 +6,7 @@ import { IProductRepository } from './IProductRepository';
 import { Product, ProductCreationAttributes } from '../../models/Product';
 import Category from '../../models/Category';
 import Brand from '../../models/Brand';
+import { HttpStatusCodes } from '../../common/Enum';
 
 @injectable()
 class ProductRepository implements IProductRepository {
@@ -62,7 +63,10 @@ class ProductRepository implements IProductRepository {
     const result = await Product.findOne(findOptions);
 
     if (isEmpty(result)) {
-      throw 'Product not found';
+      throw {
+        message: `Product not found`,
+        statusCode: HttpStatusCodes.notFound,
+      };
     }
 
     return result;
@@ -90,7 +94,10 @@ class ProductRepository implements IProductRepository {
     const result = await Product.findOne(findOptions);
 
     if (isEmpty(result)) {
-      throw `Cannot find product with id ${productId}`;
+      throw {
+        message: `Cannot find product with id ${productId}`,
+        statusCode: HttpStatusCodes.notFound,
+      };
     }
 
     return result;
@@ -110,7 +117,10 @@ class ProductRepository implements IProductRepository {
     });
 
     if (result[0] === 0 || result.length !== 2 || !result[1][0]) {
-      throw `Cannot find and update product with id ${productId}`;
+      throw {
+        message: `Cannot find and update product with id ${productId}`,
+        statusCode: HttpStatusCodes.notFound,
+      };
     }
 
     return result[1][0];

@@ -19,3 +19,7 @@ export const ActivityContent = {
   deleteProduct: 'Delete product {{productId}}',
   createProduct: 'Create product {{productId}}',
 };
+
+export const HttpStatusCodes = {
+  notFound: 404,
+};

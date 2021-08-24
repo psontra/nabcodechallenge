@@ -1,9 +1,11 @@
 # NAB Code Challenge
 
 ## Requisites
+- docker (tested on **v20.10.8**) and docker-compose (tested on **v1.29.2**)
+
+### Optional
 - node version >= 12 (tested and run on **v12.18.3**)
 - npm/yarn
-- docker (tested on **v20.10.8**) and docker-compose (tested on **v1.29.2**)
 
 ## Steps to run:
 - Make sure you are at the same directory as `docker-compose.yaml`
@@ -21,6 +23,25 @@ http://localhost:3000/api-docs
 
 ### CURL commands examples to test endpoints:
 - Get list of products
+  ```
+  curl "http://localhost:3000/products/?name__contain=gigabyte&sortBy=price:asc"
+  ```
+- Get product detail
+  ```
+  curl "http://localhost:3000/products/edcf6c53-728f-4fa9-ab52-669a30cda0fb"
+  ```
+- Update product
+  ```
+  curl -d '{"name": "updated product"}' -H 'Content-Type: application/json' -X PUT "http://localhost:3000/products/edcf6c53-728f-4fa9-ab52-669a30cda0fb"
+  ```
+- Delete product
+  ```
+  curl -X DELETE "http://localhost:3000/products/edcf6c53-728f-4fa9-ab52-669a30cda0fb"
+  ```
+- Create product
+  ```
+  curl -d '{"name": "new product", "price": "12345", "brandId": "249176ea-24d8-40e5-a729-fab46430986c", "categoryId": "aa4ef1f7-7956-43cd-9b28-cf921e249c51"}' -H 'Content-Type: application/json' "http://localhost:3000/products"
+  ```
 
 ### Advance search when get list of products:
 - Endpoint `/products`: 
