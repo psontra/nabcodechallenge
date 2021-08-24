@@ -11,6 +11,7 @@ import {
   transformCreatedActivity,
   TransformedActivity,
 } from '../../transformers/ActivityTransformer';
+import { ExpressCustomRequest } from '../../common/ExpressCustomTypes';
 
 @injectable()
 class ActivityController implements IActivityController {
@@ -31,6 +32,28 @@ class ActivityController implements IActivityController {
       res.json(transformedActivity);
     } catch (err) {
       Logger.error('Error creating activity', err);
+
+      return next(err);
+    }
+  }
+
+  public async getActivities(
+    req: ExpressCustomRequest,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const activities = await this._activityService.getActivities();
+      const transformedActivities: TransformedActivity[] = activities.map(
+        transformCreatedActivity,
+      );
+
+      res.json({
+        data: transformedActivities,
+        success: true,
+      });
+    } catch (err) {
+      Logger.error('Error getting activity list ', err);
 
       return next(err);
     }

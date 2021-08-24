@@ -4,4 +4,5 @@ export interface IActivityService {
   createActivity(
     createActivityData: ActivityCreationAttributes,
   ): Promise<Activity>;
+  getActivities(): Promise<Activity[]>;
 }

@@ -35,10 +35,13 @@
   - Run `yarn test` or `yarn test:cov` to see coverage  
 
 ## Details of project
+- You can test endpoint using `curl` command (examples at [CURL commands examples to test endpoints](#curl-commands-examples-to-test-endpoints))
+- Or you can import the collection from **postman/NAB Code Challenge.postman_collection.json** to ``Postman` and test.
 
 ### High-level design and infrastructure
 ![](./readme/infrastructure.png)
 - And a `swagger` service to show the endpoint documents of `api`.
+- `api` can contact with `activity-service` via HTTP calls to public endpoints of `activity-service`
 
 ### Swagger document endpoint
 - If run by `docker-compose`:
@@ -49,9 +52,15 @@ http://localhost:8080/api-docs
 ```
 http://localhost:3000/api-docs
 ```
+- Currently, I have only created swagger document page for `api`
 
 ### Sequence diagram for get product list
 ![](./readme/sequence-digram-get-product-list.png)
+
+- Every time user requests to get product list, an activity will be logged, you can request to get list activities to check after the call to get product list:
+```
+  curl "http://localhost:3001/activities"
+```
 
 ### Entity relationship diagram for the database.
 ![](./readme/erd.png)
@@ -140,7 +149,11 @@ http://localhost:3000/api-docs
       "categoryId": "aa4ef1f7-7956-43cd-9b28-cf921e249c51"
   }'
   ```
-
+- Get all activities
+  ```
+  curl "http://localhost:3001/activities"
+  ```
+  
 ## Advance search when get list of products
 - Endpoint `/products`: 
   - Support the following queries:

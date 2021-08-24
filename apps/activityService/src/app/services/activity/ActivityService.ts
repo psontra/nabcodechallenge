@@ -22,6 +22,10 @@ class ActivityService implements IActivityService {
 
     return await this._activityRepository.create(activityCreateObj);
   }
+
+  public async getActivities(): Promise<Activity[]> {
+    return await this._activityRepository.getAll();
+  }
 }
 
 export default ActivityService;

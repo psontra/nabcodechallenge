@@ -21,11 +21,15 @@ class ActivityRoute {
   }
 
   private registerActivityRoutes() {
-    this._router.post(
-      '/',
-      validator.body(createActivityValidator),
-      this._activityController.create.bind(this._activityController),
-    );
+    this._router
+      .route('/')
+      .get(
+        this._activityController.getActivities.bind(this._activityController),
+      )
+      .post(
+        validator.body(createActivityValidator),
+        this._activityController.create.bind(this._activityController),
+      );
   }
 
   get routes(): Router {

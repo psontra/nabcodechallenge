@@ -45,4 +45,26 @@ describe('activity.service', () => {
       });
     });
   });
+
+  describe('getActivities', () => {
+    it('should call repository correctly', async () => {
+      const activityRepositoryMock = {
+        getAll: jest.fn(async () => []),
+      };
+
+      container.unbind(Types.IActivityRepository);
+      container
+        .bind(Types.IActivityRepository)
+        .toConstantValue(activityRepositoryMock);
+
+      const activityService = container.get<IActivityService>(
+        Types.IActivityService,
+      );
+
+      await activityService.getActivities();
+
+      expect(activityRepositoryMock.getAll).toHaveBeenCalledTimes(1);
+      expect(activityRepositoryMock.getAll).toHaveBeenCalledWith();
+    });
+  });
 });

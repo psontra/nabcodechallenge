@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f505e7c5-f64b-4ae6-ae28-a64b9a8fb1e1",
+		"_postman_id": "7daa2099-9e6f-41d7-82a4-dba1a63a714e",
 		"name": "NAB Code Challenge",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -132,6 +132,23 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get all activities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{activityServiceUrl}}/activities",
+					"host": [
+						"{{activityServiceUrl}}"
+					],
+					"path": [
+						"activities"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -158,6 +175,10 @@
 		{
 			"key": "apiUrl",
 			"value": "http://localhost:3000"
+		},
+		{
+			"key": "activityServiceUrl",
+			"value": "http://localhost:3001"
 		}
 	]
 }

@@ -86,4 +86,63 @@ describe('activity.controller', () => {
       expect(next).toHaveBeenCalledWith('unit test error');
     });
   });
+
+  describe('getActivities', () => {
+    it('should call service correctly', async () => {
+      const request = {};
+      const response = mockResponse();
+      const next = jest.fn();
+      const activityServiceMock = {
+        getActivities: jest.fn(async () => []),
+      };
+
+      container.unbind(Types.IActivityService);
+      container
+        .bind(Types.IActivityService)
+        .toConstantValue(activityServiceMock);
+
+      const productController = container.get<IActivityController>(
+        Types.IActivityController,
+      );
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      await productController.getActivities(request, response, next);
+
+      expect(response.json).toHaveBeenCalledTimes(1);
+      expect(response.json).toHaveBeenCalledWith({
+        data: [],
+        success: true,
+      });
+      expect(activityServiceMock.getActivities).toHaveBeenCalledTimes(1);
+      expect(activityServiceMock.getActivities).toHaveBeenCalledWith();
+    });
+
+    it('should throw error when catch an exception', async () => {
+      const request = {};
+      const response = mockResponse();
+      const next = jest.fn();
+      const activityServiceMock = {
+        getActivities: jest.fn(async () => {
+          throw 'unit test error';
+        }),
+      };
+
+      container.unbind(Types.IActivityService);
+      container
+        .bind(Types.IActivityService)
+        .toConstantValue(activityServiceMock);
+
+      const productController = container.get<IActivityController>(
+        Types.IActivityController,
+      );
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      await productController.getActivities(request, response, next);
+
+      expect(next).toHaveBeenCalledTimes(1);
+      expect(next).toHaveBeenCalledWith('unit test error');
+    });
+  });
 });
