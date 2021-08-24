@@ -35,6 +35,12 @@ const parseQuery = (
             },
           });
         }
+      } else {
+        req.filter.push({
+          [item]: {
+            [OperatorMap.eq]: get(req.query, item),
+          },
+        });
       }
     } else {
       const sortBy: string[] = toString(get(req.query, 'sortBy')).split(':');
