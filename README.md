@@ -8,6 +8,7 @@
 - yarn
 
 ## Steps to run
+- Clone this repo https://github.com/psontra/nabcodechallenge.git
 - Make sure you are at the same directory as `docker-compose.yaml`
 - Run `docker-compose up`
 
