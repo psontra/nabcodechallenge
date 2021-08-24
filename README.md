@@ -3,26 +3,112 @@
 ## Requisites
 - docker (tested on **v20.10.8**) and docker-compose (tested on **v1.29.2**)
 
-### Optional
+### If you want to run locally
 - node version >= 12 (tested and run on **v12.18.3**)
-- npm/yarn
+- yarn
 
-## Steps to run:
+## Steps to run
 - Make sure you are at the same directory as `docker-compose.yaml`
 - Run `docker-compose up`
+
+### If you want to run locally
+- Must use `yarn`
+- Make sure you are at the same directory as `docker-compose.yaml`
+- Run `docker-compose up db`
+- Open 2 terminals
+- `cd` to **apps/api**
+  - Run `yarn install`
+  - Run `yarn start`
+- `cd` to **apps/activityService**
+  - Run `yarn install`
+  - Run `yarn start`
+
+## Run unit test
+- Must use `yarn`
+- Can only run unit test for each service (`api/activity service`), cannot run both with 1 command.
+- `cd` to **apps/api**
+  - Run `yarn install` if you haven't
+  - Run `yarn test` or `yarn test:cov` to see coverage
+- `cd` to **apps/activityService**
+  - Run `yarn install` if you haven't
+  - Run `yarn test` or `yarn test:cov` to see coverage  
 
 ## Details of project
 
 ### High-level design and infrastructure
 ![](./readme/infrastructure.png)
+- And a `swagger` service to show the endpoint documents of `api`.
 
 ### Swagger document endpoint
+- If run by `docker-compose`:
+```
+http://localhost:8080/api-docs
+```
+- If run locally:
 ```
 http://localhost:3000/api-docs
 ```
 
-### CURL commands examples to test endpoints:
-- Get list of products
+### Sequence diagram for get product list
+![](./readme/sequence-digram-get-product-list.png)
+
+### Entity relationship diagram for the database.
+![](./readme/erd.png)
+
+### Software development principles, patterns & practices being applied
+- Repository pattern
+- Dependency injection (using **InversifyJS**)
+
+### Code folder structure
+- Group by layer (`controller/service/repository/...`)
+- Has 2 services inside `apps` folder due to the fact that I can only use 1 repository
+```
+├───apps
+│   ├───activityService
+│   │   └───<same with api>
+│   └───api
+│       └───src
+│           ├───app
+│           │   ├───common
+│           │   │   ├───db
+│           │   │   └───Ioc
+│           │   ├───controllers
+│           │   │   └───product
+│           │   ├───models
+│           │   ├───repositories
+│           │   │   └───product
+│           │   ├───routes
+│           │   ├───services
+│           │   │   ├───activity
+│           │   │   └───product
+│           │   ├───transformers
+│           │   └───validators
+│           ├───config
+│           ├───app.ts
+│           ├───routes.ts
+│           └───__jest__
+├───db
+│   ├───init.sql
+│   └───Dockerfile
+├───postman
+├───docker-compose.yaml
+└───readme
+```
+
+### Libraries / frameworks being used
+- ExpressJS
+- InversifyJS
+- Joi to validate request
+- Jest to run unit test
+- Winston to log
+- Morgan to log requests
+- Sequelize to interact with database (postgres)  
+- Husky & lint-staged to add pre-commit hook to re-verify staged files.
+- eslint, prettier to check code standard.
+- `config` to read from pre-set configuration file.
+
+## CURL commands examples to test endpoints
+- Get list of products: read how to do advance search query at section [Advance search when get list of products](#advance-search-when-get-list-of-products)
   ```
   curl "http://localhost:3000/products/?name__contain=gigabyte&sortBy=price:asc"
   ```
@@ -32,7 +118,11 @@ http://localhost:3000/api-docs
   ```
 - Update product
   ```
-  curl -d '{"name": "updated product"}' -H 'Content-Type: application/json' -X PUT "http://localhost:3000/products/edcf6c53-728f-4fa9-ab52-669a30cda0fb"
+  curl -X PUT "http://localhost:3000/products/edcf6c53-728f-4fa9-ab52-669a30cda0fb" \
+  -H 'Content-Type: application/json' \
+  -d '{
+      "name": "updated product"
+  }'
   ```
 - Delete product
   ```
@@ -40,10 +130,17 @@ http://localhost:3000/api-docs
   ```
 - Create product
   ```
-  curl -d '{"name": "new product", "price": "12345", "brandId": "249176ea-24d8-40e5-a729-fab46430986c", "categoryId": "aa4ef1f7-7956-43cd-9b28-cf921e249c51"}' -H 'Content-Type: application/json' "http://localhost:3000/products"
+  curl -X POST "http://localhost:3000/products" \
+  -H 'Content-Type: application/json' \
+  -d '{
+      "name": "new product",
+      "price": "12345",
+      "brandId": "249176ea-24d8-40e5-a729-fab46430986c",
+      "categoryId": "aa4ef1f7-7956-43cd-9b28-cf921e249c51"
+  }'
   ```
 
-### Advance search when get list of products:
+## Advance search when get list of products
 - Endpoint `/products`: 
   - Support the following queries:
     - name: name of product - string

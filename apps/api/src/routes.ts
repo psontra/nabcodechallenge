@@ -20,7 +20,12 @@ const swaggerDocument = swaggerJSDoc({
       },
     ],
   },
-  apis: ['./src/app/controllers/**/*.ts'],
+  apis: [
+    './src/app/controllers/**/*.ts',
+    './src/app/controllers/**/*.js',
+    './app/controllers/**/*.ts',
+    './app/controllers/**/*.js',
+  ],
 });
 
 import Types from './app/common/Ioc/Types';
@@ -38,11 +43,16 @@ class Routes {
   private _registerRoutes(): Router {
     this._router.use('/products', this._productRoute.routes);
 
-    this._router.use(
-      '/api-docs',
-      swaggerUi.serve,
-      swaggerUi.setup(swaggerDocument),
-    );
+    if (
+      process.env.NODE_ENV !== 'production' &&
+      process.env.NODE_ENV !== 'test'
+    ) {
+      this._router.use(
+        '/api-docs',
+        swaggerUi.serve,
+        swaggerUi.setup(swaggerDocument),
+      );
+    }
 
     return this._router;
   }

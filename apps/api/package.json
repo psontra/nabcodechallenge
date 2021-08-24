@@ -9,11 +9,11 @@
   "scripts": {
     "build": "tsc && npx copyfiles -u 2 src/config/*.json dist/config",
     "preinstall": "git config core.autocrlf false && git config core.eol lf",
-    "start": "npm run build && cross-env NODE_ENV=production node dist/app.js",
-    "start:test": "npm run build && cross-env NODE_ENV=test node dist/app.js",
+    "start": "npm run build && cross-env NODE_ENV=dev node dist/app.js",
     "start:dev": "cross-env NODE_ENV=dev nodemon src/app.ts",
     "test": "jest --verbose",
-    "test:cov": "jest --coverage"
+    "test:cov": "jest --coverage",
+    "docs": "swagger-jsdoc -d swagger.config.js -o api.json ./src/app/controllers/**/*.ts"
   },
   "dependencies": {
     "@hapi/joi": "~15",

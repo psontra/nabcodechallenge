@@ -1,0 +1,14 @@
+FROM node:12-alpine as builder
+
+WORKDIR /usr/src/app
+
+ADD ./src ./src
+ADD package.json .
+ADD swagger.config.js .
+ADD yarn.lock .
+RUN yarn install --ignore-scripts
+RUN yarn docs
+
+FROM swaggerapi/swagger-ui
+
+COPY --from=builder /usr/src/app/api.json .

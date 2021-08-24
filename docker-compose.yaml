@@ -12,6 +12,7 @@ services:
     depends_on:
       - db
       - activity-service
+      - swagger
 
   activity-service:
     build: ./apps/activityService
@@ -24,6 +25,20 @@ services:
       - 3001:3001
     depends_on:
       - db
+
+  swagger:
+    build:
+      context: ./apps/api
+      dockerfile: ./Dockerfile.swagger
+    image: image_swagger
+    restart: always
+    container_name: swagger
+    environment:
+      BASE_URL: /api-docs
+      SWAGGER_JSON: /api.json
+    ports:
+      - 8080:8080
+
 
   db:
     build: ./db
